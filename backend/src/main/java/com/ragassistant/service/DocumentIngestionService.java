@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.pgvector.PGvector;
+
 @Service
 public class DocumentIngestionService {
     private static final Logger log = LoggerFactory.getLogger(DocumentIngestionService.class);
@@ -67,7 +69,7 @@ public class DocumentIngestionService {
             chunk.setDocument(doc);
             chunk.setChunkIndex(i);
             chunk.setContent(chunkText);
-            chunk.setEmbedding(embedding);
+            chunk.setEmbedding(new PGvector(embedding));
 
             chunks.add(chunk);
         }
