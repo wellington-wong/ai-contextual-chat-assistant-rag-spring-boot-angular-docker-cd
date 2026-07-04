@@ -14,9 +14,9 @@ public interface DocumentChunkRepository extends JpaRepository<DocumentChunk, Lo
             
             SELECT * FROM document_chunks
             ORDER BY embedding <=> CAST(:embedding as vector)
-            LIMI :k
+            LIMIT :k
             """, nativeQuery = true)
     List<DocumentChunk> findTopKSimilar(@Param("embedding") String embedding, @Param("k") int k);
 
-    Void deleteByDocumentId(Long documentId);
+    void deleteByDocumentId(Long documentId);
 }

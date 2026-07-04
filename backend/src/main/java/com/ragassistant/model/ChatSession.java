@@ -28,6 +28,6 @@ public class ChatSession {
     private LocalDateTime updatedAt = LocalDateTime.now();
 
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @OrderBy("createAt ASC")
+    @OrderBy("createdAt ASC")
     private List<ChatMessage> messages = new ArrayList<>();
 }

@@ -37,5 +37,5 @@ public class DocumentChunk {
 	private float[] embedding;
 
 	@Column(name = "created_at")
-	private LocalDateTime createAt = LocalDateTime.now();
+	private LocalDateTime createdAt = LocalDateTime.now();
 }
