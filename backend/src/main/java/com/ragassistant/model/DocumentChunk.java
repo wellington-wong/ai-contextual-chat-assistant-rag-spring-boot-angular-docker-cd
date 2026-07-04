@@ -8,17 +8,17 @@ import org.hibernate.annotations.JdbcTypeCode;
 
 import org.hibernate.type.SqlTypes;
 import java.time.LocalDateTime;
+
 import com.pgvector.PGvector;
+import com.ragassistant.converter.PGvectorConverter;
 
 @Entity
-
 @Table(name = "document_chunks")
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class DocumentChunk {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -36,6 +36,7 @@ public class DocumentChunk {
 	private String content;
 
 	@Column(columnDefinition = "vector(1024)")
+	@Convert(converter = PGvectorConverter.class)
 	private PGvector embedding;
 
 	//@JdbcTypeCode(SqlTypes.ARRAY)
