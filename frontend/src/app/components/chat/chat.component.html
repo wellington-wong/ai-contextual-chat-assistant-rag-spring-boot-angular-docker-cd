@@ -1,0 +1,222 @@
+<div class="app-shell">
+
+
+
+
+    <!-- Sidebar ------------------------------------------------------>
+    <aside class="sidebar">
+        <header class="sidebar-header">
+            <div class="brand">
+                <span class="brand-icon">◈</span>
+                <span class="brand-name">RAG<strong>CHAT</strong></span>
+            </div>
+            <button class="btn-new" (click)="newSession()" title="New Chat">+</button>
+
+        </header>
+        <nav class="session-list">
+            <p class="section-label">Conversations</p>
+            @for (session of sessions; track trackById($index, session)) {
+                <div
+                    class="session-item"
+                    [class.active]="activeSession?.id === session.id"
+                    (click)="selectSession(session)"
+                >
+
+
+                    <span class="session-title">{{ session.title }}</span>
+                    <button
+                        class="btn-icon btn-delete"
+                        (click)="deleteSession(session, $event)"
+                        title="Delete"
+                    >X</button>
+                </div>
+            }
+
+
+            @empty {
+                <p class="empty-hint">No conversations yet.<br />Click + to start.</p>
+            }
+        </nav>
+
+        <!-- Doc panel toggle --->
+
+
+
+
+
+
+        <div class="sidebar-footer">
+            <button class="btn-docs" (click)="showDocPanel = !showDocPanel">
+                <span>📄</span> Knowledge Base
+                <span class="doc-badge">{{ documents.length }}</span>
+            </button>
+        </div>
+
+
+    </aside>
+
+    <!-- Main chat area ------------------------------------------------------>
+
+    <main class="chat-area">
+        @if (!activeSession) {
+            <div class="empty-state">
+                <div class="empty-icon">◈</div>
+
+
+                <h2>Start a conversation</h2>
+                <p>Create a new chat or upload documents to build your knowledge base.</p>
+                <button class="btn-primary" (click)="newSession()">New Conversation</button>
+            </div>
+        } @else {
+
+            <!-- Messages ----------------------------------------------------->
+
+
+
+            <div class="message-container" #messageContainers>
+                @for (msg of messages; track trackById($index, msg)) {
+                    <div class="message" [class.user]="msg.role === 'user'" [class.assistant]="msg.role === 'assistant'">
+
+                        <div class="msg-avatar">{{ msg.role === 'user' ? 'U' : '◈' }}</div>
+                        <div>
+                            <p class="msg.text">{{ msg.content }}</p>
+
+
+
+
+                            <span class="msg-time">{{ msg.createdAt | date:'shortTime' }}</span>
+                        </div>
+                    </div>
+                }
+
+                @if (isSending) {
+
+
+
+                    <div class="message assistant">
+                        <div class="msg-avatar">◈</div>
+                        <div class="msg-bubble">
+
+                            <div class="typing-indicator">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (chatError) {
+                    <div class="error-banner">⚠ {{ chatError }}</div>
+                }
+            </div>
+
+            <!-- Input bar --------------------------->
+
+
+
+            <div class="input-bar">
+                <textarea
+                    class="message-input"
+
+                    rows="1"
+                    placeholder="Ask a question about your documents..."
+                    [(ngModel)]="inputText"
+
+
+
+                    (keydown)="onKeyDown($event)"
+                    [disabled]="isSending"
+                ></textarea>
+
+                <button
+                    class="btn-send"
+                    (click)="sendMessage()"
+
+
+
+                    [disabled]="isSending || !inputText.trim()"
+                >
+                    {{ isSending ? '...' : '↑' }}
+                </button>
+
+
+            </div>
+
+
+
+        }
+    </main>
+
+    <!-- Document panel (slide-in) ------------------------------------>
+
+    @if (showDocPanel) {
+        <aside class="doc-panel">
+
+
+
+            <header class="doc-panel-header">
+                <h3>Knowledge Base</h3>
+                <button class="btn-icon" (click)="showDocPanel = false">X</button>
+
+            </header>
+
+            <div class="upload-zone">
+
+
+
+                <input
+                    #fileInput
+                    type="file"
+
+                    hidden
+                    accept=".pdf,.txt, .md,.pdf,.csv"
+                    (change)="onFileSelected($event)"/>
+
+
+
+                <button class="btn-upload" (click)="triggerFileUpload()" [disabled]="isUploading">
+                    @if (isUploading) { ⏳ Uploading... } @else { + Upload Document }
+                </button>
+
+                <p class="upload-hint">PDF, TXT, MD, DOCX, CSV · max 20 MB</p>
+                @if (uploadError) {
+                    <p class="upload-error">{{ uploadError }}</p>
+
+
+
+                }
+            </div>
+
+            <div class="doc-list">
+                @for (doc of documents; track trackById($index, doc)) {
+                    <div class="doc-item">
+
+
+
+
+                        <div class="doc-info">
+                            <span class="doc-name">{{ doc.name }}</span>
+                            <span class="doc-meta">{{ doc.createdAt | date:'mediumDate' }}</span>
+
+                        </div>
+                        <button
+                            class="btn-icon btn-delete"
+
+
+
+                            (click)="deleteDocument(doc, $event)"
+                            title="Remove"
+                        >X</button>
+                    </div>
+                }
+                @empty {
+                    <p class="empty-hint">No documents yet. Upload one to get started.</p>
+
+
+                }
+            </div>
+
+
+        </aside>
+    }
+
+</div>
