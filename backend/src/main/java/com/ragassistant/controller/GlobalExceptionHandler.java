@@ -17,7 +17,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Dtos.ApiError> handleRuntime(RuntimeException e) {
-        log.error("Runtime error: {}", e.getMessage());
+        log.error("Runtime error", e);
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new Dtos.ApiError(e.getMessage()));
     }
