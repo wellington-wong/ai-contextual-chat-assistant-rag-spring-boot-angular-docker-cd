@@ -69,7 +69,7 @@ public class DocumentIngestionService {
             chunk.setDocument(doc);
             chunk.setChunkIndex(i);
             chunk.setContent(chunkText);
-            chunk.setEmbedding(apiClient.embed(chunkText));
+            chunk.setEmbedding(embedding);
 
             chunks.add(chunk);
         }

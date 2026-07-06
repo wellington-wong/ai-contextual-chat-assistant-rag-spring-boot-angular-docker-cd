@@ -6,6 +6,7 @@ import com.ragassistant.model.DocumentChunk;
 import com.ragassistant.repository.ChatMessageRepository;
 import com.ragassistant.repository.ChatSessionRepository;
 import com.ragassistant.repository.DocumentChunkRepository;
+import com.ragassistant.repository.ChunkSearchResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -77,7 +78,7 @@ public class RagChatService {
         String pgVectorLiteral = toPgVectorLiteral(queryEmbedding);
 
         // 3. Retrieve top-K similar chunks
-        List<DocumentChunk> chunks = chunkRepository.findTopKSimilar(pgVectorLiteral, topK);
+        List<ChunkSearchResult> chunks = chunkRepository.findTopKSimilar(pgVectorLiteral, topK);
         log.info("Retrieved {} context chunks for query", chunks.size());
 
         // 4. Build augmented system prompt
@@ -114,7 +115,7 @@ public class RagChatService {
         return messageRepository.save(msg);
     }
 
-    private String buildSystemPrompt(List<DocumentChunk> chunks) {
+    private String buildSystemPrompt(List<ChunkSearchResult> chunks) {
         if (chunks.isEmpty()) {
             return """
                     You are a helpful assistant. Answer the user's questions clearly and accurately as possible.
@@ -124,7 +125,9 @@ public class RagChatService {
 
 
         String contextBlock = chunks.stream()
-                .map(c -> "---\n" + c.getContent())
+                .map(ChunkSearchResult::getContent)
+
+                //.map(c -> "---\n" + c.getContent())
                 .collect(Collectors.joining("\n"));
 
         return """

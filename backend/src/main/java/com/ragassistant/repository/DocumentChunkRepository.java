@@ -12,11 +12,11 @@ import java.util.List;
 public interface DocumentChunkRepository extends JpaRepository<DocumentChunk, Long> {
     @Query(value = """
             
-            SELECT * FROM document_chunks
+            SELECT id, chunk_index, content, created_at, document_id FROM document_chunks
             ORDER BY embedding <=> CAST(:embedding as vector)
             LIMIT :k
             """, nativeQuery = true)
-    List<DocumentChunk> findTopKSimilar(@Param("embedding") String embedding, @Param("k") int k);
+    List<ChunkSearchResult> findTopKSimilar(@Param("embedding") String embedding, @Param("k") int k);
 
     void deleteByDocumentId(Long documentId);
 }
