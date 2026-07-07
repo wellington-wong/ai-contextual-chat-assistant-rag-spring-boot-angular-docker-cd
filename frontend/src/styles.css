@@ -5,3 +5,8 @@ html, body {
     padding: 0;
     background: #0d0f15;
 }
+
+.msg-text ul {
+    margin-left: 25px;
+    line-height: 1;
+}

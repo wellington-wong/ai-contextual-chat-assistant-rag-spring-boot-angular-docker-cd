@@ -9,6 +9,11 @@ import { FormsModule } from '@angular/forms';
 
 import { ApiService } from '../../services/api.service';
 import { ChatSession, ChatMessage, DocumentInfo } from '../../models/models';
+import { marked } from 'marked';
+
+
+
+import { DomSanitizer,SafeHtml } from "@angular/platform-browser";
 
 @Component({
 
@@ -45,7 +50,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
     chatError = '';
 
-    constructor(private api: ApiService, private cdr: ChangeDetectorRef) {}
+    constructor(private api: ApiService, private cdr: ChangeDetectorRef, private sanitizer: DomSanitizer) {}
 
     ngOnInit(): void {
         this.loadSessions();
@@ -212,7 +217,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
     deleteDocument(doc: DocumentInfo, event: Event): void {
 
-
         event.stopPropagation();
         this.api.deleteDocument(doc.id).subscribe({
             next: () => (this.documents = this.documents.filter((d) => d.id !== doc.id)),
@@ -220,8 +224,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     }
 
     // -- Utils ------------------------------------------------------
-
-
 
     private scrollToBottom(): void {
         try {
@@ -231,10 +233,13 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         } catch {}
     }
 
-
-
     trackById(_: number, item: { id: number }) {
         return item.id;
+    }
+
+    renderMarkdown(text: string): SafeHtml {
+        const html = marked.parse(text) as string;
+        return this.sanitizer.bypassSecurityTrustHtml(html);
     }
 
 }

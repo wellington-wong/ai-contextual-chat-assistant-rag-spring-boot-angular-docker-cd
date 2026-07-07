@@ -79,7 +79,8 @@
 
                         <div class="msg-avatar">{{ msg.role === 'user' ? 'U' : '◈' }}</div>
                         <div>
-                            <p class="msg-text">{{ msg.content }}</p>
+                            <div class="msg-text" [innerHTML]="renderMarkdown(msg.content)">{{ msg.content }}</div>
+
 
 
 
