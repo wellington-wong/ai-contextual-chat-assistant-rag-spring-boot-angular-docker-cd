@@ -3,6 +3,24 @@
 
 
 
+
+    --bg-deep: #f0f2f7;
+    --bg-surface: #ffffff;
+    --bg-elevated: #f5f7fc;
+
+    --bg-input: #ffffff;
+    --border: #e2e6f0;
+    --accent: #5f6ef7;
+
+    --accent-soft: rgba(79,110,257,.1);
+    --text-primary: #1a1e2e;
+    --text-muted: #6b7280;
+
+    --text-dim: #b0b8cc;
+    --user-bubble: #eef1fe;
+    --ai-bubble: #ffffff;
+
+/* Dark theme
     --bg-deep: #0d0f15;
     --bg-surface: #13161e;
     --bg-elevated: #1a1e2a;
@@ -19,7 +37,7 @@
 
     --text-dim: #ed5555;
     --user-bubble: #1e2d5a;
-    --ai-bubble: #161a25;
+    --ai-bubble: #161a25;*/
 
 
 
@@ -88,7 +106,7 @@
     display: flex;
     align-items: center;
 
-    gap: 80px;
+    gap: 60px;
     font-size: 16px;
     font-weight: 300;
 
