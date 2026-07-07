@@ -50,3 +50,5 @@ ON chat_messages(session_id, id);
 
 CREATE INDEX IF NOT EXISTS idx_document_chunks_document
 ON document_chunks(document_id, chunk_index);
+
+

@@ -43,7 +43,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     isSending = false;
 
     isUploading = false;
-    showDocPanel = false;
+    showDocPanel = true;
     uploadError = '';
 
 

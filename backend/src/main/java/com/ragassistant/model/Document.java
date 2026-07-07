@@ -34,6 +34,6 @@ public class Document {
 
 	private LocalDateTime createdAt = LocalDateTime.now();
 
-	@OneToMany(mappedBy = "document", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<DocumentChunk> chunks;
+	//@OneToMany(mappedBy = "document", cascade = CascadeType.ALL, orphanRemoval = true)
+	//private List<DocumentChunk> chunks;
 }
