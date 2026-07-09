@@ -69,9 +69,7 @@ jobs:
 
       - name: Deploy
         run: |
-          ssh -i ~/.ssh/id_ed25519 \
-
-            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << EOF
+          ssh -i ~/.ssh/id_ed25519 ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << EOF
 
           set -euo pipefail
           cd ~/apps/rag-assistant
@@ -101,7 +99,7 @@ jobs:
 
           echo "Waiting for backend..."
 
-          for i in {1.30}; do
+          for i in {1..30}; do
 
             if curl -fs http://localhost:8080/actuator/health >/dev/null; then
               echo "Backend is healthy"
@@ -113,7 +111,7 @@ jobs:
             sleep 2
           done
 
-          Echo "Health check failed"
+          echo "Health check failed"
 
           docker compose -f docker-compose.prod.yml logs backend
 
