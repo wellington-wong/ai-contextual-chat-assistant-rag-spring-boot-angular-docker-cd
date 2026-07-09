@@ -84,7 +84,7 @@ jobs:
           docker login ghcr.io \
             -u ${{ github.actor }} \
 
-            -p ${{ secrets.GITHUB_TOKEN }}
+            -p ${{ github.token }}
 
           docker compose -f docker-compose.prod.yml pull backend
 
