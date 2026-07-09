@@ -311,9 +311,9 @@ Core entities:
 ## Clone
 
 ```bash
-git clone https://github.com/<username>/<repository>.git
+git clone https://github.com/wellington-wong/ai-contextual-chat-assistant-rag-spring-boot-angular-docker-cd.git
 
-cd <repository>
+cd ai-contextual-chat-assistant-rag-spring-boot-angular-docker-cd
 ```
 
 ## Backend
