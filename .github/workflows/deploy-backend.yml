@@ -71,7 +71,7 @@ jobs:
         run: |
           ssh -i ~/.ssh/id_ed25519 ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} <<EOF
 
-          set -euo pipefail
+          set -euxo pipefail
           cd ~/apps/rag-assistant
           cat > .env <<EOT
 
