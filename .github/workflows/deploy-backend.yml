@@ -69,7 +69,7 @@ jobs:
 
       - name: Deploy
         run: |
-          ssh -i ~/.ssh/id_ed25519 ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} <<EOF
+          ssh -i ~/.ssh/id_ed25519 ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} 'bash -se' <<EOF
 
           set -euxo pipefail
           cd ~/apps/rag-assistant
@@ -90,7 +90,7 @@ jobs:
 
           docker compose -f docker-compose.prod.yml pull backend
 
-          docker compose -f docker-compose.prod.yml up -d backend
+          docker compose -f docker-compose.prod.yml up -d --no-deps backend
 
           echo "Waiting for backend..."
 
