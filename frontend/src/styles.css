@@ -6,7 +6,8 @@ html, body {
     background: #0d0f15;
 }
 
-.msg-text ul {
+.msg-text ul,
+.msg-text ol {
     margin-left: 25px;
     line-height: 1;
 }
