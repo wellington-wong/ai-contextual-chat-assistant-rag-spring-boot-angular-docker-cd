@@ -111,4 +111,5 @@ jobs:
           docker compose -f docker-compose.prod.yml logs backend
 
           exit 1
-          EOF
+          
+EOF
