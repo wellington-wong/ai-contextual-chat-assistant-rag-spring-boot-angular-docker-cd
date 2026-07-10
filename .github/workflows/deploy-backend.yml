@@ -109,7 +109,7 @@ jobs:
           echo "Health check failed"
 
           docker compose -f docker-compose.prod.yml logs backend
+          exit 1          
+          EOF
 
-          exit 1
-          
-EOF
+          echo "ssh exit code: $?"
