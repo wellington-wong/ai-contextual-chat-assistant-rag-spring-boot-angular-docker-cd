@@ -4,6 +4,16 @@ services:
 
     restart: unless-stopped
 
+    environment:
+      JAVA_TOOL_OPTIONS: >-
+        -Xms32m
+        -Xmx128m
+
+        -XX:+UseSerialGC
+
+
+
+
     env_file:
       - .env
 
