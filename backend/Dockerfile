@@ -6,7 +6,7 @@ COPY src ./src
 RUN apt-get update && apt-get install -y maven && \
     mvn -q package -DskipTests
 
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:21-jdk
 WORKDIR /app
 COPY --from=build /app/target/rag-assistant-*.jar app.jar
 EXPOSE 8080
