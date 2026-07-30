@@ -8,7 +8,7 @@
 
       "projectType": "application",
       "schematics": {
-        "@schematics/angular:component": { "style", "css" }
+        "@schematics/angular:component": { "style": "css" }
       },
 
 
@@ -51,9 +51,10 @@
               ],
               "outputHashing": "all"
             },
-            "development": {
+
+
+              "development": {
               "optimization": false,
-              "extractLicense": false,
 
               "sourceMap": true
             }
@@ -66,7 +67,7 @@
           "configurations": {
 
             "production": { "buildTarget": "rag-assistant-ui:build:production" },
-            "development": { "buildTarget": "rag-assistant-ui:build:development" },
+            "development": { "buildTarget": "rag-assistant-ui:build:development" }
 
           },
           "defaultConfiguration": "development"
